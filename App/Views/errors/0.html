@@ -5,5 +5,5 @@
 {% block body%}
 
 <h1>Error</h1>
-<p>Error occured, please back to <a href="{{ URL }}">main page</a>.</p>
+<p>{{ exception.message }}</p>
 {% endblock %}

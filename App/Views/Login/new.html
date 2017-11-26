@@ -17,6 +17,8 @@
     <label>
         <input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %}> Remember me
     </label><br>
+
+    <input type="hidden" name="token_form" value="{{ token_form }}">
     <input type="submit">
     <a href="{{ URL }}/password/forgot">Forgot password?</a>
 </form>

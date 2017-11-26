@@ -32,5 +32,4 @@ class Token
         return hash_hmac('sha256', $this->token, \App\Config::SECRET_KEY);
     }
 
-
 }

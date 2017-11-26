@@ -22,6 +22,13 @@ set_exception_handler('Core\Error::exceptionHandler');
 
 session_start();
 
+//must be after session init;
+if (!empty($_POST)) {
+    if (!\App\Input::checkTokenForm($_POST['token_form']))
+    {
+        throw new Exception('Token form is invalid. Probably somebody try to hack you. Please, contact admin');
+    }
+}
 
 $router = new Core\Router();
 

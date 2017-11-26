@@ -8,6 +8,17 @@ namespace App;
  */
 class Config
 {
+
+    /**
+     * Config mail
+     */
+    const MAIL_HOST = 'smtp.gmail.com';
+    const MAIL_USERNAME = '';
+    const MAIL_PASSWORD = '';
+    const MAIL_SMTP_SECURE = 'ssl';
+    const MAIL_PORT = 465;
+
+
     const DB_HOST = 'localhost';
     const DB_NAME = 'mvc';
     const DB_USER = 'root';
@@ -18,7 +29,7 @@ class Config
      *
      * false - save errors in logs, and display error messages
      */
-    const SHOW_ERRORS = true;
+    const SHOW_ERRORS = false;
     const URL = 'http://localhost/mvc/public';
 
     /**

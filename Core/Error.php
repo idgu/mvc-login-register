@@ -38,9 +38,19 @@ class Error
             $message .= 'Throw in: ' . $exception->getFile() . ' on line ' . $exception->getLine();
             error_log($message);
 
+            $e = [];
+            $e['message'] = $exception->getMessage();
+
             switch ($exception->getCode()) {
                 case 404:
-                    View::renderTemplate('/errors/404.html');
+                    View::renderTemplate('/errors/404.html', [
+                        'exception' => $exception
+                    ]);
+                    break;
+                case 0:
+                    View::renderTemplate('/errors/0.html', [
+                        'exception' => $exception
+                    ]);
                     break;
                 default:
                     View::renderTemplate('/errors/default.html');

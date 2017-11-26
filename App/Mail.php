@@ -9,7 +9,7 @@ namespace App;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+use \App\Config;
 
 class Mail
 {
@@ -20,12 +20,12 @@ class Mail
             //Server settings
             //$mail->SMTPDebug = 2;                                 // Enable verbose debug output
             $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->Host = Config::MAIL_HOST;  // Specify main and backup SMTP servers
             $mail->SMTPAuth = true;                               // Enable SMTP authentication
-            $mail->Username = '';                 // SMTP username
-            $mail->Password = '';                           // SMTP password
-            $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = 465;                                    // TCP port to connect to
+            $mail->Username = Config::MAIL_USERNAME;                 // SMTP username
+            $mail->Password = Config::MAIL_PASSWORD;                           // SMTP password
+            $mail->SMTPSecure = Config::MAIL_SMTP_SECURE;                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = Config::MAIL_PORT;                                    // TCP port to connect to
 
             //Recipients
             $mail->setFrom('from@example.com', 'Robciu');

@@ -137,4 +137,23 @@ class Auth
         }
     }
 
+
+
+
+
+    public static function saveTokenFrom($tokenValue)
+    {
+        $_SESSION['token_form'] = $tokenValue;
+    }
+
+    public static function checkTokenForm($token)
+    {
+        if (isset($_SESSION['token_form']) && $token == $_SESSION['token_form']) {
+            unset($_SESSION['token_form']);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -9,13 +9,16 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Input;
 
 class Signup extends \Core\Controller
 {
 
     public function newAction()
     {
-        View::renderTemplate('/Signup/new.html');
+        View::renderTemplate('/Signup/new.html', [
+            'token_form' => Input::generateFormToken()
+        ]);
     }
 
 
@@ -28,7 +31,10 @@ class Signup extends \Core\Controller
 
            $this->redirect('/signup/success');
        } else {
-           View::renderTemplate('/Signup/new.html', ['user' => $user]);
+           View::renderTemplate('/Signup/new.html', [
+               'user'       => $user,
+               'token_form' => Input::generateFormToken()
+           ]);
        }
     }
 

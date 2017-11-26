@@ -11,21 +11,25 @@ use \core\View;
 use \App\Models\User;
 use \App\Auth;
 use \App\Flash;
+use \App\Input;
 
 class Login extends \Core\Controller
 {
     public function newAction()
     {
-        View::renderTemplate('/Login/new.html');
+        View::renderTemplate('/Login/new.html', [
+            'token_form' => Input::generateFormToken()
+        ]);
     }
 
 
 
     public function createAction()
     {
-        $user = User::authenticate($_POST['email'], $_POST['password']);
 
+        $user = User::authenticate($_POST['email'], $_POST['password']);
         $remember_me = isset($_POST['remember_me']);
+
 
         if ($user) {
 
@@ -34,11 +38,14 @@ class Login extends \Core\Controller
             $this->redirect(Auth::getReturnToPage());
 
         } else {
+
             Flash::addMessage('Login unsuccessful, please try again', Flash::WARNING);
             View::renderTemplate('/Login/new.html', [
                 'email' => $_POST['email'],
-                'remember_me' => $remember_me
+                'remember_me' => $remember_me,
+                'token_form' => Input::generateFormToken()
             ]);
+
         }
     }
 

@@ -70,3 +70,51 @@
 #8 C:\xampp\htdocs\mvc\Core\Router.php(168): Core\Controller->__call('index', Array)
 #9 C:\xampp\htdocs\mvc\public\index.php(42): Core\Router->dispatch('')
 #10 {main}Throw in: C:\xampp\htdocs\mvc\Core\Model.php on line 20
+[26-Nov-2017 21:21:41 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:22:43 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:29 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:29 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:34 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:34 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:34 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:42 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:42 Europe/Berlin] PHP Fatal error:  Uncaught Twig_Error_Syntax: Unclosed "(". in C:\xampp\htdocs\mvc\App\Views\errors\default.html:8
+Stack trace:
+#0 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Lexer.php(202): Twig_Lexer->lexExpression()
+#1 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Lexer.php(105): Twig_Lexer->lexVar()
+#2 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(508): Twig_Lexer->tokenize(Object(Twig_Source))
+#3 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(561): Twig_Environment->tokenize(Object(Twig_Source))
+#4 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(368): Twig_Environment->compileSource(Object(Twig_Source))
+#5 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(289): Twig_Environment->loadTemplate('/errors/default...')
+#6 C:\xampp\htdocs\mvc\Core\View.php(45): Twig_Environment->render('/errors/default...', Array)
+#7 C:\xampp\htdocs\mvc\Core\View.php(29): Core\View::getTemplate('/errors/default...', Array)
+#8 C:\xampp\htdocs\mvc\Core\Error.php(49): Core\View::renderTempl in C:\xampp\htdocs\mvc\App\Views\errors\default.html on line 8
+[26-Nov-2017 21:23:43 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:43 Europe/Berlin] PHP Fatal error:  Uncaught Twig_Error_Syntax: Unclosed "(". in C:\xampp\htdocs\mvc\App\Views\errors\default.html:8
+Stack trace:
+#0 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Lexer.php(202): Twig_Lexer->lexExpression()
+#1 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Lexer.php(105): Twig_Lexer->lexVar()
+#2 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(508): Twig_Lexer->tokenize(Object(Twig_Source))
+#3 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(561): Twig_Environment->tokenize(Object(Twig_Source))
+#4 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(368): Twig_Environment->compileSource(Object(Twig_Source))
+#5 C:\xampp\htdocs\mvc\vendor\twig\twig\lib\Twig\Environment.php(289): Twig_Environment->loadTemplate('/errors/default...')
+#6 C:\xampp\htdocs\mvc\Core\View.php(45): Twig_Environment->render('/errors/default...', Array)
+#7 C:\xampp\htdocs\mvc\Core\View.php(29): Core\View::getTemplate('/errors/default...', Array)
+#8 C:\xampp\htdocs\mvc\Core\Error.php(49): Core\View::renderTempl in C:\xampp\htdocs\mvc\App\Views\errors\default.html on line 8
+[26-Nov-2017 21:23:48 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:48 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:23:49 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:25:26 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:26:34 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:27:17 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:27:46 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Propably somebodty try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:28:07 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:28:08 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:28:08 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:28:08 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:28:33 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:31:03 Europe/Berlin] Uncaught exception: </p>Exception with message No route matched\nStack trace:#0 C:\xampp\htdocs\mvc\public\index.php(48): Core\Router->dispatch('signup/new/dupa')
+#1 {main}Throw in: C:\xampp\htdocs\mvc\Core\Router.php on line 176
+[26-Nov-2017 21:32:44 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:39:42 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29
+[26-Nov-2017 21:43:24 Europe/Berlin] Uncaught exception: </p>Exception with message Token form is invalid. Probably somebody try to hack you. Please, contact admin\nStack trace:#0 {main}Throw in: C:\xampp\htdocs\mvc\public\index.php on line 29

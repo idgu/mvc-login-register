@@ -34,6 +34,7 @@
         <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="repeat password">
     </div>
 
+    <input type="hidden" name="token_form" value="{{ token_form }}">
     <input type="submit">
     <a href="{{ URL }}/profile/show">Cancel</a>
 </form>

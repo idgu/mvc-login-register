@@ -10,6 +10,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use \App\Input;
 
 
 class Profile extends Authenticated
@@ -22,7 +23,9 @@ class Profile extends Authenticated
 
     public function editAction()
     {
-        View::renderTemplate('/Profile/edit.html');
+        View::renderTemplate('/Profile/edit.html',[
+            'token_form' => Input::generateFormToken()
+        ]);
     }
 
 
@@ -31,11 +34,17 @@ class Profile extends Authenticated
         $user = Auth::getUser();
 
         if ($user->updateProfile($_POST)) {
+
             Flash::addMessage('Changes saved');
             $this->redirect('/profile/show');
+
         } else {
-            View::renderTemplate('/Profile/edit.html',
-                ['user'=>$user]);
+
+            View::renderTemplate('/Profile/edit.html', [
+                'user'=>$user,
+                'token_form'=> Input::generateFormToken()
+            ]);
+
         }
     }
 }
