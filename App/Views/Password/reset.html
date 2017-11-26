@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Password Reset{% endblock %}
+
+{% block body%}
+
+<h1>Reset password</h1>
+{% if user.errors is not empty %}
+<p>Errors:</p>
+{% for error in user.errors %}
+<li> {{ error }}</li>
+{% endfor %}
+{% endif %}
+
+
+<br><form method="post" action="{{ URL }}/password/reset-password">
+    <input type="hidden" name="token" value="{{ token }}">
+    <div>
+        <label for="inputPassword">Password</label>
+        <input id="inputPassword" type="text" name="password" placeholder="password" required>
+    </div>
+    <div>
+        <label for="inputPasswordConfirmation">Password Confirm</label>
+        <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="repeat password" required>
+    </div>
+
+
+
+    <input type="submit">
+</form>
+{% endblock %}

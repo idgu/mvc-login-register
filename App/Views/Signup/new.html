@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Signup{% endblock %}
+
+{% block body%}
+
+<h1>Welcome</h1>
+{% if user.errors is not empty %}
+<p>Errors:</p>
+{% for error in user.errors %}
+    <li> {{ error }}</li>
+{% endfor %}
+{% endif %}
+
+
+<br><form method="post" action="{{ URL }}/signup/create">
+    <div>
+        <label for="inputName">Name</label>
+        <input id="inputName" type="text" name="name" placeholder="Name" autofocus value="{{ user.name }}" required>
+
+    </div>
+
+    <div>
+        <label for="inputEmail">Email</label>
+        <input id="inputEmail" type="email" name="email" placeholder="email adress" value="{{ user.email }}" required>
+        <span id="emailError" class="validation-error"></span>
+    </div>
+
+    <div>
+        <label for="inputPassword">Password</label>
+        <input id="inputPassword" type="password" name="password" placeholder="password" required>
+    </div>
+
+    <div>
+        <label for="inputPasswordConfirmation">Password Confirm</label>
+        <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="repeat password" required>
+    </div>
+
+    <input type="submit">
+</form>
+
+{% endblock %}
+
+
+
+{% block footer %}
+
+<script src="{{ URL }}/js/registerValidation.js"></script>
+
+{% endblock %}

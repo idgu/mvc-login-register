@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body%}
+
+<h1>Profile</h1>
+{% if user.errors is not empty %}
+<p>Errors:</p>
+{% for error in user.errors %}
+<li> {{ error }}</li>
+{% endfor %}
+{% endif %}
+
+
+<br><form method="post" action="{{ URL }}/profile/update">
+    <div>
+        <label for="inputName">Name</label>
+        <input id="inputName" type="text" name="name" placeholder="Name" value="{{ current_user.name }}" required>
+    </div>
+
+    <div>
+        <label for="inputEmail">Email</label>
+        <input id="inputEmail" type="email" name="email" placeholder="email adress" value="{{ current_user.email }}" required>
+    </div>
+
+    <div>
+        <label for="inputPassword">Password</label>
+        <input id="inputPassword" type="password" name="password" placeholder="password">
+    </div>
+
+    <div>
+        <label for="inputPasswordConfirmation">Password Confirm</label>
+        <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="repeat password">
+    </div>
+
+    <input type="submit">
+    <a href="{{ URL }}/profile/show">Cancel</a>
+</form>
+{% endblock %}

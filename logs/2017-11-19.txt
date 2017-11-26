@@ -1,0 +1,4 @@
+[19-Nov-2017 19:10:56 Europe/Berlin] Uncaught exception: </p>Exception with message No route matched\nStack trace:#0 C:\xampp\htdocs\mvc\public\index.php(27): Core\Router->dispatch('products')
+#1 {main}Throw in: C:\xampp\htdocs\mvc\Core\Router.php on line 85
+[19-Nov-2017 19:11:33 Europe/Berlin] Uncaught exception: </p>Exception with message Controller class App\Controllers\Products not found\nStack trace:#0 C:\xampp\htdocs\mvc\public\index.php(27): Core\Router->dispatch('products/jasiu')
+#1 {main}Throw in: C:\xampp\htdocs\mvc\Core\Router.php on line 82
