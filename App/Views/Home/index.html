@@ -2,14 +2,26 @@
 
 {% block title %}Sign up{% endblock %}
 
-{% block body%}
-    <h1>Welcome</h1>
+{% block header %}
 
-{% if current_user %}
-Hello {{current_user.name}}
-{% else %}
-    <a href="{{ URL }}/signup/new">Sing up</a>
-    <a href="{{ URL }}/login">Log in</a>
-{% endif %}
+<div class="jumbotron jumbotron-fluid bg-inverse text-white">
+    <div class="container">
+        <h1 class="display-4">MVC Login&Register</h1>
+        <blockquote class="blockquote" style="margin-top: 20px;">
+            <p class="mb-0">To be or not to be, that is the question.</p>
+            <footer class="blockquote-footer">William Shakespeare in <cite title="Source Title">Somewhere</cite></footer>
+        </blockquote>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block body%}
+
+    {% if current_user %}
+        <p>Hello {{current_user.name}}!</p>
+    {% else %}
+        <p>Hello Guest !</p>
+    {% endif %}
 
 {% endblock %}

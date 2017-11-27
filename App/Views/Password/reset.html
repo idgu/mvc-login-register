@@ -4,27 +4,34 @@
 
 {% block body%}
 
-<h1>Reset password</h1>
 {% if user.errors is not empty %}
-<p>Errors:</p>
 {% for error in user.errors %}
-<li> {{ error }}</li>
+<div class="alert alert-warning">{{ error }}</div></li>
 {% endfor %}
 {% endif %}
 
 
-<br><form method="post" action="{{ URL }}/password/reset-password">
-    <div>
-        <label for="inputPassword">Password</label>
-        <input id="inputPassword" type="password" name="password" placeholder="password" required>
+<h1 class="display-4 mt-5 text-center">Reset password</h1>
+<form class="justify-content-md-center mt-5" method="post" action="{{ URL }}/password/reset-password">
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputPassword">Password</label>
+            <input id="inputPassword" type="password" class="form-control" name="password" placeholder="password" autofocus required>
+        </div>
     </div>
-    <div>
-        <label for="inputPasswordConfirmation">Password Confirm</label>
-        <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="repeat password" required>
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputPasswordConfirmation">Password Confirm</label>
+            <input id="inputPasswordConfirmation" type="password" class="form-control" name="password_confirmation" placeholder="repeat password" required>
+        </div>
     </div>
 
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
     <input type="hidden" name="token" value="{{ token }}">
     <input type="hidden" name="token_form" value="{{ token_form }}">
-    <input type="submit">
+    <input type="submit" class="btn bg-inverse text-white btn-block" value="Change password">
+        </div>
+    </div>
 </form>
 {% endblock %}

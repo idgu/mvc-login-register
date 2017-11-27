@@ -79,9 +79,14 @@ class User extends \core\Model
         }
 
         // Password
-
-        if (isset($this->password)) {
-
+        do {
+            if (!isset($this->password) && !isset($this->password_confirmation)) {
+                break;
+            }
+            if (!isset($this->password) || !isset($this->password_confirmation)) {
+                $this->errors[] = 'Password must match confirmation';
+                break;
+            }
             if ($this->password != $this->password_confirmation) {
                 $this->errors[] = 'Password must match confirmation';
             }
@@ -97,7 +102,7 @@ class User extends \core\Model
             if (preg_match('/.*\d+.*/i', $this->password) == 0) {
                 $this->errors[] = 'Password needs at least one number';
             }
-        }
+        } while(0);
 
     }
 
@@ -372,20 +377,22 @@ class User extends \core\Model
     {
         $this->name = $data['name'];
         $this->email = $data['email'];
-        if ($data['password'] != '' && $data['password_confirmation'] != '') {
+
+        if ($data['password'] != '') {
             $this->password = $data['password'];
+        }
+        if ($data['password_confirmation'] != '') {
             $this->password_confirmation = $data['password_confirmation'];
         }
 
-
-        $this->validate();
+            $this->validate();
 
         if (empty($this->errors)) {
             $sql = 'UPDATE users
             SET name = :name,
                 email = :email';
 
-            if (isset($this->password)) {
+            if (isset($this->password) && isset($this->password_confirmation)) {
                $sql .= ', password_hash = :password_hash ';
             }
 

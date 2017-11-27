@@ -4,48 +4,64 @@
 
 {% block body%}
 
-<h1>Welcome</h1>
 {% if user.errors is not empty %}
-<p>Errors:</p>
 {% for error in user.errors %}
-    <li> {{ error }}</li>
+    <div class="alert alert-warning">{{ error }}</div></li>
 {% endfor %}
 {% endif %}
 
 
-<br><form method="post" action="{{ URL }}/signup/create">
-    <div>
-        <label for="inputName">Name</label>
-        <input id="inputName" type="text" name="name" placeholder="Name" autofocus value="{{ user.name }}" required>
 
+
+
+
+
+
+
+
+<h1 class="display-4 mt-5 text-center">Sign up</h1>
+    <form class="justify-content-md-center mt-5" method="post" action="{{ URL }}/signup/create">
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputName">Username</label>
+            <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" autofocus value="{{ user.name }}" required>
+        </div>
     </div>
 
-    <div>
-        <label for="inputEmail">Email</label>
-        <input id="inputEmail" type="email" name="email" placeholder="email adress" value="{{ user.email }}" required>
-        <span id="emailError" class="validation-error"></span>
+
+
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputEmail">Email (confirmation via Email Message)</label>
+            <input type="email" name="email" class="form-control" id="inputEmail" placeholder="email adress" value="{{ user.email }}" required>
+            <span id="emailError" class="text-danger"></span>
+        </div>
+    </div>
+        <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputPassword">Password</label>
+            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="password" required>
+        </div>
+    </div>
+        <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputPasswordConfirmation">Password Confirm</label>
+            <input type="password" name="password_confirmation" class="form-control" id="inputPasswordConfirmation" placeholder="repeat password" required>
+        </div>
     </div>
 
-    <div>
-        <label for="inputPassword">Password</label>
-        <input id="inputPassword" type="password" name="password" placeholder="password" required>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <input type="hidden" name="token_form" value="{{ token_form }}">
+            <button type="submit" class="btn bg-inverse text-white btn-block">Sign up</button>
+        </div>
     </div>
-
-    <div>
-        <label for="inputPasswordConfirmation">Password Confirm</label>
-        <input id="inputPasswordConfirmation" type="password" name="password_confirmation" placeholder="repeat password" required>
-    </div>
-
-    <input type="hidden" name="token_form" value="{{ token_form }}">
-    <input type="submit">
 </form>
+
 
 {% endblock %}
 
 
-
 {% block footer %}
-
 <script src="{{ URL }}/js/registerValidation.js"></script>
-
 {% endblock %}

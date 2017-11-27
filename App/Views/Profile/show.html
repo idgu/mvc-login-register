@@ -3,14 +3,55 @@
 {% block title %}Profile{% endblock %}
 
 {% block body%}
+<div class="card mt-5 pt-4 pb-4"><a href="{{ URL }}/profile/edit">Edit</a>
 
-<h1>Profile</h1>
-<dl>
-    <dt>Name</dt>
-    <dd>{{ current_user.name }}</dd>
-    <dt>Email</dt>
-    <dd>{{ current_user.email }}</dd>
-</dl>
-<a href="{{ URL }}/profile/edit">Edit</a>
+    <div class="row justify-content-center">
+        <div class="col-sm-4 text-center">
+            <img alt=""  title="" class="img-thumbnail text-center" src="https://cdn2.iconfinder.com/data/icons/users-2/512/User_6-512.png">
+
+        </div>
+        <div class="col-md-6 justify-self-center">
+            <strong>Informacje</strong><br>
+            <table class="table text-inverse">
+                <tbody>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="fa fa-user"></span>
+                            Nazwa użytkownika
+                        </strong>
+                    </td>
+                    <td>
+                        {{ current_user.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="fa fa-envelope"></span>
+                            Email
+                        </strong>
+                    </td>
+                    <td>
+                        {{ current_user.email }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="fa fa-comment"></span>
+                            Ranga
+                        </strong>
+                    </td>
+                    <td>
+                        Użytkownik
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
