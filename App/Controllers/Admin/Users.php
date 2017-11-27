@@ -8,7 +8,7 @@
 namespace App\Controllers\Admin;
 
 
-class Users extends \Core\Controller
+class Users extends Authenticatedadmin
 {
 
     protected  function before()

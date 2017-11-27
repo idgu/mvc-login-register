@@ -63,6 +63,14 @@ abstract class Controller
         }
     }
 
+    /**
+     * If its not admin, then throw exception with code 404
+     */
+    public function requireAdmin()
+    {
+
+    }
+
 
     /**
      * Redirect to '/' if user is logged in

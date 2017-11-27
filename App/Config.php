@@ -29,7 +29,7 @@ class Config
      *
      * false - save errors in logs, and display error messages
      */
-    const SHOW_ERRORS = false;
+    const SHOW_ERRORS = true;
     const URL = 'http://localhost/mvc/public';
 
     /**
