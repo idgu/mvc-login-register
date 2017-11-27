@@ -3,22 +3,21 @@
 {% block title %}Profile{% endblock %}
 
 {% block body%}
-<div class="card mt-5 pt-4 pb-4"><a href="{{ URL }}/profile/edit">Edit</a>
+<div class="card mt-5 pt-4 pb-4">
 
     <div class="row justify-content-center">
         <div class="col-sm-4 text-center">
-            <img alt=""  title="" class="img-thumbnail text-center" src="https://cdn2.iconfinder.com/data/icons/users-2/512/User_6-512.png">
-
+            <img alt=""  title="" class="img-thumbnail text-center" src="{{ URL }}/img/avatar.png">
         </div>
         <div class="col-md-6 justify-self-center">
-            <strong>Informacje</strong><br>
+            <strong>Information</strong> <a href="{{ URL }}/profile/edit" class="ml-5">Edit profile</a><br>
             <table class="table text-inverse">
                 <tbody>
                 <tr>
                     <td>
                         <strong>
                             <span class="fa fa-user"></span>
-                            Nazwa użytkownika
+                            Username
                         </strong>
                     </td>
                     <td>
@@ -40,11 +39,11 @@
                     <td>
                         <strong>
                             <span class="fa fa-comment"></span>
-                            Ranga
+                            Permission
                         </strong>
                     </td>
                     <td>
-                        Użytkownik
+                        User
                     </td>
                 </tr>
 
