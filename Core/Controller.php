@@ -59,7 +59,20 @@ abstract class Controller
             Flash::addMessage('Please login to access that page', Flash::INFO);
             Auth::rememberRequestedPage();
 
-            $this->redirect('login');
+            $this->redirect('/login');
+        }
+    }
+
+
+    /**
+     * Redirect to '/' if user is logged in
+     */
+    public function notRequireLogin()
+    {
+        if (Auth::getUser()) {
+            Flash::addMessage('Please logout to access that page', Flash::INFO);
+
+            $this->redirect('/');
         }
     }
 

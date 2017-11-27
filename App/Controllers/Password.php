@@ -12,7 +12,7 @@ use \App\Models\User;
 use \App\Flash;
 Use \App\Input;
 
-class Password extends \Core\Controller
+class Password extends Authenticatednot
 {
     public function forgotAction()
     {

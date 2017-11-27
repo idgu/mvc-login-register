@@ -11,7 +11,7 @@ use \Core\View;
 use \App\Models\User;
 use \App\Input;
 
-class Signup extends \Core\Controller
+class Signup extends Authenticatednot
 {
 
     public function newAction()

@@ -13,7 +13,7 @@ use \App\Auth;
 use \App\Flash;
 use \App\Input;
 
-class Login extends \Core\Controller
+class Login extends Authenticatednot
 {
     public function newAction()
     {
@@ -51,7 +51,7 @@ class Login extends \Core\Controller
 
 
 
-    public function destroyAction()
+    public function destroy()
     {
         Auth::logout();
         $this->redirect('/login/show-logout-message');
