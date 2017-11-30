@@ -26,4 +26,16 @@ abstract class Model
         }
         return $db;
     }
+
+
+    public static function valueExists($from, $where = array())
+    {
+        $sql = "SELECT id FROM $from WHERE $where[0] $where[1] ?";
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(1, $where[2], PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }

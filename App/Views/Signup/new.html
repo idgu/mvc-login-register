@@ -24,7 +24,7 @@
     <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
             <label for="inputName">Username</label>
-            <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" autofocus value="{{ user.name }}" required>
+            <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" autofocus value="{{ user.name }}" >
         </div>
     </div>
 
@@ -33,20 +33,20 @@
     <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
             <label for="inputEmail">Email (confirmation via Email Message)</label>
-            <input type="email" name="email" class="form-control" id="inputEmail" placeholder="email adress" value="{{ user.email }}" required>
+            <input  name="email" class="form-control" id="inputEmail" placeholder="email adress" value="{{ user.email }}" >
             <span id="emailError" class="text-danger"></span>
         </div>
     </div>
         <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
             <label for="inputPassword">Password</label>
-            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="password" required>
+            <input  name="password" class="form-control" id="inputPassword" placeholder="password" >
         </div>
     </div>
         <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
             <label for="inputPasswordConfirmation">Password Confirm</label>
-            <input type="password" name="password_confirmation" class="form-control" id="inputPasswordConfirmation" placeholder="repeat password" required>
+            <input  name="password_confirmation" class="form-control" id="inputPasswordConfirmation" placeholder="repeat password" >
         </div>
     </div>
 

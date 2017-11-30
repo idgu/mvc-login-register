@@ -11,6 +11,8 @@ use \Core\View;
 use \App\Models\User;
 use \App\Flash;
 Use \App\Input;
+use \App\Form;
+use \App\Validator;
 
 class Password extends Authenticatednot
 {
@@ -47,10 +49,23 @@ class Password extends Authenticatednot
     public function resetPasswordAction()
     {
         $token = $_POST['token'];
+
         $user = $this->getUserOrExit($token);
 
 
-        if ($user->resetPassword($_POST['password'], $_POST['password_confirmation'])) {
+        $validator = new Validator($user);
+        $validator -> add($password = new Form('Password','password', [
+            'maxlength'=>32,
+            'minlength'=>6,
+            'oneNumber' => true,
+            'oneLetter' => true
+        ]));
+
+        $validator->add(new Form('Password Confirm','password_confirmation', [
+            'equals' => $password
+        ]));
+
+        if ($user->resetPassword($validator, $_POST['password'], $_POST['password_confirmation'])) {
             View::renderTemplate('/Password/reset_success.html');
         } else {
             View::renderTemplate('/Password/reset.html', [

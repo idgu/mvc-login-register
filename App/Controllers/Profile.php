@@ -11,6 +11,8 @@ use \Core\View;
 use \App\Auth;
 use \App\Flash;
 use \App\Input;
+use \App\Validator;
+use \App\Form;
 
 
 class Profile extends Authenticated
@@ -33,7 +35,26 @@ class Profile extends Authenticated
     {
         $user = Auth::getUser();
 
-        if ($user->updateProfile($_POST)) {
+        $validator = new Validator($user);
+
+        $validator->add(new Form('Username', 'name', [
+            'maxlength' =>32,
+            'minlength' =>4
+        ]));
+
+        $validator ->add($password = new Form('Password','password', [
+            'maxlength'=>32,
+            'minlength'=>6,
+            'oneNumber' => true,
+            'oneLetter' => true,
+            'notRequired' => true
+        ]));
+
+        $validator->add(new Form('Password','password_confirmation', [
+            'equals' => $password
+        ]));
+
+        if ($user->updateProfile($validator, $_POST)) {
 
             Flash::addMessage('Changes saved');
             $this->redirect('/profile/show');

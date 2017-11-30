@@ -10,6 +10,8 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\User;
 use \App\Input;
+use \App\Form;
+use \App\Validator;
 
 class Signup extends Authenticatednot
 {
@@ -24,8 +26,34 @@ class Signup extends Authenticatednot
 
     public function createAction()
     {
-       $user = new User($_POST);
-       if ($user->save()) {
+        $user = new User($_POST);
+
+
+        $validator = new Validator($user);
+
+        $validator->add(new Form('Username', 'name', [
+            'maxlength' =>32,
+            'minlength' =>4
+        ]));
+
+        $validator -> add(new Form('Email','email', [
+            'email'=> true,
+            'notExistDb' => 'users/email'
+        ]));
+
+        $validator ->add($password = new Form('Password','password', [
+            'maxlength'=>32,
+            'minlength'=>6,
+            'oneNumber' => true,
+            'oneLetter' => true
+        ]));
+
+        $validator->add(new Form('Password','password_confirmation', [
+            'equals' => $password
+        ]));
+
+
+       if ($user->save($validator)) {
 
            $user->sendActivationEmail();
 

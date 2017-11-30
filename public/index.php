@@ -35,15 +35,17 @@ $router = new Core\Router();
 //Routing table
 $router->add('{controller}/{action}/{userid:\d+}');
 $router->add('{controller}/{action}');
+
+$router->add('', ['controller'=> 'Home', 'action'=> 'index']);
 $router->add('admin', ['controller'=> 'Users', 'action'=> 'index']);
-$router->add('posts', ['controller'=> 'Posts', 'action'=> 'index']);
 $router->add('home', ['controller'=> 'Home', 'action'=> 'index']);
 $router->add('login', ['controller'=> 'Login', 'action'=> 'new']);
 $router->add('signup', ['controller'=> 'Signup', 'action'=> 'new']);
 $router->add('logout', ['controller'=> 'Login', 'action'=> 'destroy']);
+$router->add('profile', ['controller'=> 'Profile', 'action'=> 'show']);
+
 $router->add('password/reset/{token:[\da-f]+}', ['controller'=> 'Password', 'action'=> 'reset']);
 $router->add('signup/activate/{token:[\da-f]+}', ['controller'=> 'Signup', 'action'=> 'activate']);
-$router->add('', ['controller'=> 'Home', 'action'=> 'index']);
 
 
 $router->add('admin/{controller}/{action}', [
