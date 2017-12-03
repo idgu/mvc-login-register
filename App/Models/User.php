@@ -39,7 +39,7 @@ class User extends \core\Model
      *
      * @return bool
      */
-    public function save(Validator $validator)
+    public function save(Validator $validator, $notRequiredActivation = false)
     {
 
         $errors = $this->validate($validator);
@@ -51,7 +51,13 @@ class User extends \core\Model
             $hashed_token = $token->getHash();
             $this->activation_token = $token->getValue();
 
-            $sql = 'INSERT INTO users (name, email, password_hash, activation_hash) VALUES (:name, :email, :password_hash, :activation_hash)';
+            if ($notRequiredActivation) {
+                $sql = 'INSERT INTO users (name, email, password_hash, join_date, is_active) VALUES (:name, :email, :password_hash, :join_date, 1)';
+
+            } else {
+                $sql = 'INSERT INTO users (name, email, password_hash, join_date, activation_hash) VALUES (:name, :email, :password_hash, :join_date, :activation_hash)';
+
+            }
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -59,12 +65,59 @@ class User extends \core\Model
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
-            $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
+            $stmt->bindValue(':join_date', date('Y-m-d H:i:s', time()), PDO::PARAM_STR);
+
+            if (!$notRequiredActivation){
+                $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
+            }
 
             return $stmt->execute();
         }
 
         return false;
+    }
+
+
+
+    public function setAdminPermission()
+    {
+        $sql = 'UPDATE users
+                    SET permission = 1
+                    WHERE id = :id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public function setUserPermission()
+    {
+        $sql = 'UPDATE users
+                    SET permission = 0
+                    WHERE id = :id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public function delete()
+    {
+        $sql = 'DELETE FROM users WHERE id = :id';
+        $sql2 = 'DELETE FROM remembered_logins WHERE user_id = :user_id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt2 = $db->prepare($sql2);
+
+        $stmt->bindParam(':id', $this->id);
+        $stmt2->bindParam(':user_id', $this->id);
+        $stmt->execute();
+        $stmt2->execute();
     }
 
 
@@ -359,18 +412,17 @@ class User extends \core\Model
             $sql = 'UPDATE users
             SET name = :name';
 
-            if (isset($this->password) && isset($this->password_confirmation)) {
+            if ($this->password !== '' && $this->password_confirmation !== '') {
                $sql .= ', password_hash = :password_hash ';
             }
 
             $sql .= ' WHERE id = :id';
 
-            print_r($sql);
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
 
-            if (isset($this->password)) {
+            if ($this->password !== '' && $this->password_confirmation !== '') {
                 $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
                 $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
             }
@@ -380,6 +432,64 @@ class User extends \core\Model
         }
 
         return false;
+    }
+
+    public function isAdmin()
+    {
+        return ((int)$this->permission === 1)? true : false;
+    }
+
+
+
+
+
+    public static function getAllUsers($orderOption = null)
+    {
+        $order = explode('/', $orderOption);
+        $sql = 'SELECT * FROM users';
+
+        if (!empty($order) && $order) {
+            if (isset($order[0])) {
+                $sql .= ' ORDER BY '. $order[0];
+            }
+            if (isset($order[1])) {
+                $sql .= ' '. strtoupper($order[1]);
+            }
+            if (isset($order[2])) {
+                $sql .= ' LIMIT '. strtoupper($order[2]);
+            }
+        } else {
+            $sql .= ' ORDER BY '. $orderOption;
+        }
+
+
+        $db = static::getDB();
+        $stmt = $db->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        return $stmt->fetchAll();
+
+    }
+
+    public static function getUsersCount()
+    {
+        $sql = 'SELECT id FROM users';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+    public static function searchUser($name)
+    {
+        $sql = 'SELECT id, name, email FROM users WHERE name like :name';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $name = '%'.$name.'%';
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        return $stmt->fetchAll();
+
     }
 
 

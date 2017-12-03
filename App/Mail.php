@@ -18,7 +18,14 @@ class Mail
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
         try {
             //Server settings
-            //$mail->SMTPDebug = 2;                                 // Enable verbose debug output
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
             $mail->isSMTP();                                      // Set mailer to use SMTP
             $mail->Host = Config::MAIL_HOST;  // Specify main and backup SMTP servers
             $mail->SMTPAuth = true;                               // Enable SMTP authentication

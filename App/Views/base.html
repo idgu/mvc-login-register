@@ -34,11 +34,15 @@
                         <a href="{{ URL }}/profile/show" class="dropdown-item text-white">
                             <i class="fa fa-user fa-lg"></i> Profile
                         </a>
-                        <div class="dropdown-divider"></div>
 
-                        <a href="#" class="dropdown-item text-white">
+                        {% if current_user.isAdmin %}
+
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ URL }}/admin" class="dropdown-item text-white">
                             <i class="fa fa-cog fa-lg"></i> Admin Panel
                         </a>
+
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item">

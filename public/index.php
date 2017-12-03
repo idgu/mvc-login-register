@@ -23,12 +23,12 @@ set_exception_handler('Core\Error::exceptionHandler');
 session_start();
 
 //must be after session init;
-if (!empty($_POST)) {
-    if (!\App\Input::checkTokenForm($_POST['token_form']))
-    {
-        throw new Exception('Token form is invalid. Probably somebody try to hack you. Please, contact admin');
-    }
-}
+//if (!empty($_POST)) {
+//    if (!\App\Input::checkTokenForm($_POST['token_form']))
+//    {
+//        throw new Exception('Token form is invalid. Probably somebody try to hack you. Please, contact admin');
+//    }
+//}
 
 $router = new Core\Router();
 
@@ -37,7 +37,6 @@ $router->add('{controller}/{action}/{userid:\d+}');
 $router->add('{controller}/{action}');
 
 $router->add('', ['controller'=> 'Home', 'action'=> 'index']);
-$router->add('admin', ['controller'=> 'Users', 'action'=> 'index']);
 $router->add('home', ['controller'=> 'Home', 'action'=> 'index']);
 $router->add('login', ['controller'=> 'Login', 'action'=> 'new']);
 $router->add('signup', ['controller'=> 'Signup', 'action'=> 'new']);
@@ -46,6 +45,22 @@ $router->add('profile', ['controller'=> 'Profile', 'action'=> 'show']);
 
 $router->add('password/reset/{token:[\da-f]+}', ['controller'=> 'Password', 'action'=> 'reset']);
 $router->add('signup/activate/{token:[\da-f]+}', ['controller'=> 'Signup', 'action'=> 'activate']);
+
+
+$router->add('admin', [
+    'controller'    => 'Dashboard',
+    'action'        => 'index',
+    'namespace'     => 'Admin'
+]);
+
+$router->add('admin/users/index/{numpage:\d+}', [
+    'controller'=> 'Users',
+    'action' => 'index',
+    'namespace' => 'Admin'
+]);
+$router->add('admin/{controller}/{action}/{userid:\d+}', [
+    'namespace' => 'Admin'
+]);
 
 
 $router->add('admin/{controller}/{action}', [

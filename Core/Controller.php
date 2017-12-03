@@ -68,6 +68,13 @@ abstract class Controller
      */
     public function requireAdmin()
     {
+        $user = Auth::getUser();
+
+        if ($user) {
+            if ($user->isAdmin()) return;
+        }
+
+        throw new \Exception('You are not admin, my lady', 404);
 
     }
 

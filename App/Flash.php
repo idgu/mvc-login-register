@@ -10,7 +10,7 @@ namespace App;
 
 class Flash
 {
-    const SUCCESS = 'successs';
+    const SUCCESS = 'success';
 
     const INFO = 'info';
 

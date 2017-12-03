@@ -1,13 +1,16 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Admin - User{% endblock %}
 
 {% block body%}
 
 {% if user.errors is not empty %}
+<div class="container mt-3">
 {% for error in user.errors %}
+
 <div class="alert alert-warning">{{ error }}</div></li>
 {% endfor %}
+</div>
 {% endif %}
 
 <section id="edit-post" class="mt-5">
@@ -19,10 +22,10 @@
                         <h4>Edit Profile</h4>
                     </div>
                     <div class="card-block">
-                        <form method="post" action="{{ URL }}/profile/update">
+                        <form method="post" action="{{ URL }}/admin/users/update/{{user.id}}">
                             <div class="form-group">
                                 <label for="inputName" class="form-control-label">Username</label>
-                                <input id="inputName" type="text" class="form-control" name="name" value="{{ current_user.name }}">
+                                <input id="inputName" type="text" class="form-control" name="name" value="{{ user.name }}">
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword" class="form-control-label">Password</label>
@@ -33,11 +36,18 @@
                                 <label for="inputPasswordConfirmation" class="form-control-label">Password Confirm</label>
                                 <input id="inputPasswordConfirmation" class="form-control" type="password" name="password_confirmation" placeholder="repeat password">
                             </div>
+                            <div class="form-group">
+                                <label for="inputPermission" class="form-control-label">Permission</label>
+                                <select id="inputPermission" class="form-control"  name="permission">
+                                    <option value="0">User</option>
+                                    <option value="1" {% if user.permission == 1 %} selected {% endif %}>Admin</option>
+                                </select>
+                            </div>
                             <div class="row justify-content-md-center mt-5">
                                 <div class="form-group col-md-6 text-center">
-                                        <input type="hidden" name="token_form" value="{{ token_form }}">
-                                        <button type="submit" class="btn bg-inverse text-white btn-block">Update</button>
-                                        <a href="{{ URL }}/profile/show">Cancel</a>
+                                    <input type="hidden" name="token_form" value="{{ token_form }}">
+                                    <button type="submit" class="btn bg-inverse text-white btn-block">Update</button>
+                                    <a href="{{ URL }}/admin">Cancel</a>
                                 </div>
                             </div>
 

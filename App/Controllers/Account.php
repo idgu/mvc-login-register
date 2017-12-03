@@ -18,4 +18,9 @@ class Account extends \Core\Controller
         header('Content-Type: application/json');
         echo json_encode($is_valid);
     }
+
+    public function xhrSearchUserByEmailAction()
+    {
+        echo json_encode(User::searchUser($_GET['name']));
+    }
 }
