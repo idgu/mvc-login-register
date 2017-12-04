@@ -23,15 +23,24 @@ class Password extends Authenticatednot
         ]);
     }
 
+
+
+
     public function requestReset()
     {
-        if(User::sendPasswordReset($_POST['email'])) {
+        $user = User::sendPasswordReset($_POST['email']);
+
+        if(empty($user->errors)) {
             View::renderTemplate('/Password/reset_requested.html');
         } else {
-            Flash::addMessage('Email not exists in database!', Flash::WARNING);
-            $this->redirect('/password/forgot');
+            View::renderTemplate('/Password/forgot.html', [
+                'user'       => $user,
+                'token_form' => Input::generateFormToken()
+            ]);
         }
     }
+
+
 
     public function resetAction()
     {
@@ -45,6 +54,8 @@ class Password extends Authenticatednot
         ]);
 
     }
+
+
 
     public function resetPasswordAction()
     {

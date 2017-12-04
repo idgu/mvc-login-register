@@ -11,6 +11,7 @@ use \Core\View;
 use \App\Models\User;
 use \App\Input;
 use \App\Form;
+use \App\Flash;
 use \App\Validator;
 
 class Signup extends Authenticatednot
@@ -71,6 +72,39 @@ class Signup extends Authenticatednot
     {
         View::renderTemplate('/Signup/success.html');
     }
+
+
+
+
+
+    public function resendActivationEmailAction()
+    {
+        View::renderTemplate('/Signup/resend_activation_email.html', [
+            'token_form' => Input::generateFormToken()
+        ]);
+    }
+
+    public function requestResendAction()
+    {
+        $user = User::resendActivationEmail($_POST['email']);
+        if(empty($user->errors)) {
+            $this->redirect('/signup/resend-success');
+        } else {
+            View::renderTemplate('/Signup/resend_activation_email.html', [
+                'token_form' => Input::generateFormToken(),
+                'user' => $user
+            ]);
+        }
+    }
+
+    public function resendSuccessAction()
+    {
+        View::renderTemplate('/Signup/resend_email_success.html');
+    }
+
+
+
+
 
 
     public function activateAction()

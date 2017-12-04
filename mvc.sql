@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 26 Lis 2017, 16:22
+-- Czas generowania: 04 Gru 2017, 09:35
 -- Wersja serwera: 10.1.21-MariaDB
 -- Wersja PHP: 7.1.2
 
@@ -43,9 +43,12 @@ CREATE TABLE `users` (
   `name` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
+  `permission` int(11) NOT NULL DEFAULT '0',
+  `join_date` datetime NOT NULL,
   `password_reset_hash` varchar(64) DEFAULT NULL,
   `password_reset_expires_at` datetime DEFAULT NULL,
   `activation_hash` varchar(64) DEFAULT NULL,
+  `activation_hash_allowed_date` datetime DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -76,7 +79,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

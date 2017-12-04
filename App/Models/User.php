@@ -21,9 +21,6 @@ class User extends \core\Model
     public $errors = array();
 
 
-//    private $id;
-//    private $email;
-//    private $password;
     public function __construct($data = [], $validator = null)
     {
         foreach ($data as $key => $value) {
@@ -48,8 +45,7 @@ class User extends \core\Model
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
             $token = new Token();
-            $hashed_token = $token->getHash();
-            $this->activation_token = $token->getValue();
+            $this->activation_hash = $token->getHash();
 
             if ($notRequiredActivation) {
                 $sql = 'INSERT INTO users (name, email, password_hash, join_date, is_active) VALUES (:name, :email, :password_hash, :join_date, 1)';
@@ -68,7 +64,7 @@ class User extends \core\Model
             $stmt->bindValue(':join_date', date('Y-m-d H:i:s', time()), PDO::PARAM_STR);
 
             if (!$notRequiredActivation){
-                $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
+                $stmt->bindValue(':activation_hash', $this->activation_hash, PDO::PARAM_STR);
             }
 
             return $stmt->execute();
@@ -313,14 +309,21 @@ class User extends \core\Model
         $user = static::findByEmail($email);
 
         if ($user) {
-            if ($user->startPasswordReset()) {
-
-                $user->sendPasswordResetEmail();
-                return true;
+            if (strtotime($user->password_reset_expires_at) > time()) {
+                $user->errors[]= 'Activation email can be resend after '. $user->password_reset_expires_at;
             }
-        }
 
-        return false;
+            if (empty($user->errors)) {
+                if ($user->startPasswordReset()) {
+
+                    $user->sendPasswordResetEmail();
+                }
+            }
+        } else {
+            $user = new User();
+            $user->errors[]= 'User not found!';
+        }
+        return $user;
     }
 
     protected function sendPasswordResetEmail()
@@ -333,6 +336,7 @@ class User extends \core\Model
     }
 
 
+
     /**
      *
      * Update database password_rest_has and expires date
@@ -341,10 +345,10 @@ class User extends \core\Model
      */
     protected function startPasswordReset()
     {
+
         $token = new Token();
         $hashed_token = $token->getHash();
         $this->password_reset_token = $token->getValue();
-
         $expiry_timestamp = time() + 60 * 60 * 2;
 
         $sql = 'UPDATE users
@@ -367,11 +371,49 @@ class User extends \core\Model
      */
     public function sendActivationEmail()
     {
-        $url = Config::URL.'/signup/activate/' . $this->activation_token;
-
+        $url = Config::URL.'/signup/activate/' . $this->activation_hash;
         $text = View::getTemplate('Signup/activation_email.txt', ['url' => $url]);
         $html = View::getTemplate('Signup/activation_email.html', ['url' => $url]);
         Mail::send($this->email, 'Account activation', $text, $html);
+
+        return false;
+    }
+
+    private function setTimeToAnotherResend($time) {
+        $time = time() + $time;
+        $db = static::getDB();
+        $sql = 'UPDATE users
+                SET activation_hash_allowed_date = :activation_date
+                WHERE id = :id
+                ';
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindValue(':activation_date', date('Y-m-d H:i:s', $time), PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public static function resendActivationEmail($email)
+    {
+        $user = User::findByEmail($email);
+        if ($user) {
+
+            if ($user->activation_hash){
+
+                if (strtotime($user->activation_hash_allowed_date) < time()) {
+                    $user->setTimeToAnotherResend(60*60);
+                    $user->sendActivationEmail();
+                    return true;
+                } else {
+                    $user->errors[]= 'Activation email can be resend after '. $user->activation_hash_allowed_date;
+                    return $user;
+                }
+            }
+            $user->errors[]= 'This user is already activated!';
+        } else {
+            $user = new User();
+            $user->errors[]= 'User not found!';
+        }
+        return $user;
     }
 
 
@@ -381,14 +423,14 @@ class User extends \core\Model
      * @param $value activation_token send via email
      * @return bool
      */
-    public static function activate($value)
+    public static function activate($hashed_token)
     {
-        $token = new Token($value);
-        $hashed_token = $token->getHash();
+
 
         $sql = 'UPDATE users
                 SET is_active = 1,
-                    activation_hash = null
+                    activation_hash = null,
+                    activation_hash_allowed_date = null
                 WHERE activation_hash = :hashed_token';
 
         $db = static::getDB();

@@ -25,7 +25,7 @@ class Mail
                     'allow_self_signed' => true
                 )
             );
-            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+//            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
             $mail->isSMTP();                                      // Set mailer to use SMTP
             $mail->Host = Config::MAIL_HOST;  // Specify main and backup SMTP servers
             $mail->SMTPAuth = true;                               // Enable SMTP authentication
